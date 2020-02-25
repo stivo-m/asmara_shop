@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "445802724503",
+    "firebase_url": "https://asmara-shop.firebaseio.com",
+    "project_id": "asmara-shop",
+    "storage_bucket": "asmara-shop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445802724503:android:3beaaf4d71344e9a14bdd2",
+        "android_client_info": {
+          "package_name": "com.example.asmara_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445802724503-i98tsp8p5s9aorpc59lukblo6f70rb6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asmara_shop",
+            "certificate_hash": "7eb1434db4d062277c3c02480677288d5a4ed3e8"
+          }
+        },
+        {
+          "client_id": "445802724503-cqme99ed0kkrob8gmlndjprojuk4ep1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_KYuViZRQu3sk1QsAwr-H6GCZy0yi4Dg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445802724503-cqme99ed0kkrob8gmlndjprojuk4ep1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
