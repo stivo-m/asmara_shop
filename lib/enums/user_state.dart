@@ -1,0 +1,5 @@
+enum UserState {
+  UNINITIATED,
+  AUTHENTICATED,
+  UNAUTHENTICATED,
+}
