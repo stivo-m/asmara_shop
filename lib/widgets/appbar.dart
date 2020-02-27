@@ -1,7 +1,19 @@
 import 'package:asmara_shop/consts/strings.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  CustomAppBar({Key key})
+      : preferredSize = Size.fromHeight(kToolbarHeight),
+        super(key: key);
+
+  @override
+  final Size preferredSize; //
+
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,6 +26,7 @@ class CustomAppBar extends StatelessWidget {
           Container(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
                   icon: Icon(Icons.menu),
@@ -22,7 +35,13 @@ class CustomAppBar extends StatelessWidget {
                 SizedBox(
                   width: 9,
                 ),
-                Text(APP_NAME.toUpperCase()),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    APP_NAME.toUpperCase(),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               ],
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:asmara_shop/screens/dashboard.dart';
+import 'package:asmara_shop/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

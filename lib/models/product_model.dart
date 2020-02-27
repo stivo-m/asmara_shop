@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:asmara_shop/consts/strings.dart';
 
 class Item {
   final String name, description, size;
   final double price, discount;
-  final Timestamp timestamp;
+  final DateTime timestamp;
   final List<String> imageUrls;
 
   Item({
@@ -37,3 +37,47 @@ class Item {
     return item;
   }
 }
+
+List<Item> items = [
+  Item(
+    description: "",
+    discount: 0,
+    imageUrls: [
+      AD_FIVE,
+      AD_ONE,
+      AD_TWO,
+      AD_THREE,
+    ],
+    name: "White-Tshirt",
+    price: 550,
+    size: "Large",
+    timestamp: DateTime.now(),
+  ),
+  Item(
+    description: "",
+    discount: 0,
+    imageUrls: [
+      AD_FOUR,
+      AD_FIVE,
+      AD_SIX,
+    ],
+    name: "T-Shirts",
+    price: 550,
+    size: "Large",
+    timestamp: DateTime.now(),
+  ),
+  Item(
+    description: "",
+    discount: 0,
+    imageUrls: [
+      AD_SIX,
+      AD_ONE,
+      AD_TWO,
+      AD_THREE,
+    ],
+    name: "Posters",
+    price: 550,
+    size: "Large",
+    timestamp: DateTime.now(),
+  ),
+];
