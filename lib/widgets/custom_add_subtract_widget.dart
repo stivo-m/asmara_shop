@@ -1,18 +1,20 @@
+import 'package:asmara_shop/consts/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AddSubtractWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const double boxSize = 30;
     return Container(
-      width: 130,
-      height: 50,
-      child: Row(
+      width: 90,
+      height: 30,
+      child: Column(
         children: <Widget>[
           IconButton(
             color: Colors.white,
             icon: Container(
-              width: 50,
-              height: 50,
+              width: boxSize,
+              height: boxSize,
               decoration: BoxDecoration(
                 color: Colors.black87,
                 borderRadius: BorderRadius.all(Radius.circular(3)),
@@ -23,20 +25,16 @@ class AddSubtractWidget extends StatelessWidget {
             ),
             onPressed: () {},
           ),
-          SizedBox(width: 5),
+          SizedBox(height: 3),
           Text(
             "2",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: boldNormalText,
           ),
-          SizedBox(width: 5),
+          SizedBox(height: 3),
           IconButton(
             icon: Container(
-              width: 50,
-              height: 50,
+              width: boxSize,
+              height: boxSize,
               decoration: BoxDecoration(
                 color: Colors.black87,
                 borderRadius: BorderRadius.all(Radius.circular(3)),

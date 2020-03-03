@@ -24,10 +24,20 @@ class _DashboardState extends State<Dashboard> {
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: CustomAppBar(),
           bottomNavigationBar: FancyBottomNavigation(
+            inactiveIconColor: Colors.grey,
             tabs: [
-              TabData(iconData: Icons.home, title: "Home"),
-              TabData(iconData: Icons.category, title: "Category"),
-              TabData(iconData: Icons.shopping_cart, title: "Cart")
+              TabData(
+                iconData: Icons.home,
+                title: "Home",
+              ),
+              TabData(
+                iconData: Icons.category,
+                title: "Category",
+              ),
+              TabData(
+                iconData: Icons.shopping_cart,
+                title: "Cart",
+              )
             ],
             onTabChangedListener: (position) {
               setState(() {

@@ -6,6 +6,9 @@ class Item {
   final DateTime timestamp;
   final List<String> imageUrls;
 
+  // category, description, name
+  //size, price,
+  //discount
   Item({
     this.name,
     this.description,
@@ -38,7 +41,62 @@ class Item {
   }
 }
 
+class Categories {
+  final String name;
+  final String imageUrl;
+
+  Categories(this.name, this.imageUrl);
+}
+
+List<Categories> categories = [
+  Categories("Tshirts", AD_FIVE),
+  Categories("Dresses", AD_ONE),
+  Categories("Shoes", AD_TWO),
+  Categories("Watches", AD_THREE),
+];
+
 List<Item> items = [
+  Item(
+    description: "",
+    discount: 0,
+    imageUrls: [
+      AD_FIVE,
+      AD_ONE,
+      AD_TWO,
+      AD_THREE,
+    ],
+    name: "White-Tshirt",
+    price: 550,
+    size: "Large",
+    timestamp: DateTime.now(),
+  ),
+  Item(
+    description: "",
+    discount: 0,
+    imageUrls: [
+      AD_FOUR,
+      AD_FIVE,
+      AD_SIX,
+    ],
+    name: "T-Shirts",
+    price: 550,
+    size: "Large",
+    timestamp: DateTime.now(),
+  ),
+  Item(
+    description: "",
+    discount: 0,
+    imageUrls: [
+      AD_SIX,
+      AD_ONE,
+      AD_TWO,
+      AD_THREE,
+    ],
+    name: "Posters",
+    price: 550,
+    size: "Large",
+    timestamp: DateTime.now(),
+  ),
   Item(
     description: "",
     discount: 0,

@@ -1,6 +1,8 @@
 import 'package:asmara_shop/consts/strings.dart';
+import 'package:asmara_shop/consts/text_styles.dart';
 import 'package:asmara_shop/models/product_model.dart';
-import 'package:asmara_shop/widgets/custom_add_subtract_widget.dart';
+import 'package:asmara_shop/widgets/appbar.dart';
+import 'package:asmara_shop/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingCart extends StatefulWidget {
@@ -9,108 +11,102 @@ class ShoppingCart extends StatefulWidget {
 }
 
 class _ShoppingCartState extends State<ShoppingCart> {
+  double total = 0;
+  @override
+  void initState() {
+    _getTotal();
+    super.initState();
+  }
+
+  double _getTotal() {
+    double totals = 0;
+    items.forEach(
+      (item) => () {
+        totals += item.price;
+      },
+    );
+
+    return totals;
+  }
+
   @override
   Widget build(BuildContext context) {
-    double total = 0;
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 30,
-      ),
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: <Widget>[
-          Card(
-            elevation: 5,
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                //color: Colors.blue,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: CustomAppBar(),
+        body: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 15,
               ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    YOUR_CART_STRING,
+                    style: headingsBold,
+                  ),
+                  Text(
+                    CART_ITEMS_STRING,
+                    style: headingsLight.copyWith(fontSize: 17),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 520,
+              width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   total += items[index].price;
-                  return Padding(
-                    padding: EdgeInsets.only(right: 9),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 9,
-                      ),
-                      leading: CircleAvatar(
-                        radius: 50,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          child: Image.asset(
-                            items[index].imageUrls[0],
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        items[index].name.toUpperCase(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(APP_NAME),
-                          AddSubtractWidget(),
-                        ],
-                      ),
-                      trailing: Text(
-                        items[index].price.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                  return CartItem(
+                    item: items[index],
                   );
                 },
               ),
             ),
-          ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: 200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    RaisedButton(
-                      color: Colors.blue,
-                      onPressed: () {},
-                      child: Text(
-                        "PAY",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 9),
-                    Text(
-                      "Totals: " + total.toString(),
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+            SizedBox(height: 20),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
                 ),
-              ))
-        ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    TOTAL_STRING + total.toString(),
+                    style: headingsBold,
+                  ),
+                  SizedBox(width: 20),
+                  RaisedButton.icon(
+                    color: Colors.blue,
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.add_shopping_cart,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      PAY_NOW.toUpperCase(),
+                      style: boldNormalText.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

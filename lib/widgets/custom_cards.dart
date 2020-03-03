@@ -1,4 +1,5 @@
 import 'package:asmara_shop/consts/strings.dart';
+import 'package:asmara_shop/consts/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -15,7 +16,7 @@ class CustomClothesCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.all(8),
       child: Card(
         elevation: 8,
         child: Container(
@@ -23,12 +24,7 @@ class CustomClothesCards extends StatelessWidget {
           height: 250,
           child: Stack(
             children: <Widget>[
-              Image.asset(
-                imgUrl,
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
+              imgUrl == "" ? FlutterLogo(size: 250) : Image.network(imgUrl),
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
@@ -62,9 +58,10 @@ class CustomClothesCards extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
+                        Colors.white70,
+                        Colors.white54,
+                        Colors.white24,
                         Colors.white,
-                        Colors.blueAccent.withOpacity(0.8),
-                        Colors.blue
                       ],
                     ),
                   ),
@@ -75,39 +72,34 @@ class CustomClothesCards extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(height: 9),
-                        Text(
-                          name.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            RatingBar(
-                              itemSize: 20,
-                              initialRating: 3.5,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemPadding:
-                                  EdgeInsets.symmetric(horizontal: 0.0),
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
                             Text(
-                              price,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                              name.toUpperCase(),
+                              style: boldNormalText,
                             ),
+                            Text(price, style: normalText),
                           ],
+                        ),
+                        SizedBox(
+                          height: 9,
+                        ),
+                        RatingBar(
+                          itemSize: 20,
+                          initialRating: 3.5,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
                         ),
                       ],
                     ),
