@@ -1,4 +1,5 @@
 import 'package:asmara_shop/screens/auth/login.dart';
+import 'package:asmara_shop/screens/auth/signup.dart';
 import 'package:asmara_shop/screens/cart/cart.dart';
 import 'package:asmara_shop/screens/dashboard/dashboard.dart';
 import 'package:asmara_shop/screens/products/product_details.dart';
@@ -12,6 +13,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ShoppingCart());
     case 'login':
       return MaterialPageRoute(builder: (context) => Login());
+    case 'register':
+      return MaterialPageRoute(builder: (context) => Signup());
     case 'product_page':
       var item = settings.arguments;
       return MaterialPageRoute(

@@ -6,6 +6,7 @@ import 'package:asmara_shop/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:asmara_shop/consts/routes_strings.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -14,6 +15,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   GlobalKey<FormState> _formKey = GlobalKey();
+  bool _autoValidate = false;
+  String _email, _password;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,25 +58,37 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 20,
                 ),
-                state.status == LoginStatus.SUCCESSFUL
-                    ? Text("Success",
-                        style: headingsBold.copyWith(
+                state.status == LoginStatus.IDLE
+                    ? Text(LOGIN_BELOW_STRING,
+                        style: headingsLight.copyWith(
                           color: Colors.blue,
-                          fontSize: 28,
+                          fontSize: 22,
                         ))
                     : Container(),
+                state.status == LoginStatus.SUCCESSFUL
+                    ? _navigateToDashboard
+                    : Container(),
                 state.status == LoginStatus.FAILED
-                    ? Text("Failed",
+                    ? Text(
+                        AUTH_ERROR,
                         style: headingsBold.copyWith(
                           color: Colors.red,
-                          fontSize: 28,
-                        ))
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
+                        ),
+                      )
                     : Container(),
                 SizedBox(
                   height: 30,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
+                  onSaved: (val) {
+                    if (val.isNotEmpty) {
+                      _email = val;
+                    }
+                  },
+                  validator: _validateEmail,
                   decoration: InputDecoration(
                     suffixIcon: Icon(
                       Icons.person,
@@ -84,7 +99,7 @@ class _LoginState extends State<Login> {
                         Radius.circular(5),
                       ),
                     ),
-                    labelText: LOGIN_STRING,
+                    labelText: EMAIL_FIELD_STRING,
                     labelStyle: normalText,
                   ),
                 ),
@@ -93,6 +108,18 @@ class _LoginState extends State<Login> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.text,
+                  obscureText: true,
+                  onSaved: (val) {
+                    if (val.isNotEmpty) {
+                      _password = val;
+                    }
+                  },
+                  validator: (String arg) {
+                    if (arg.length < 9)
+                      return PASSWORD_ERROR_STRING;
+                    else
+                      return null;
+                  },
                   decoration: InputDecoration(
                     suffixIcon: Icon(
                       Icons.lock,
@@ -132,17 +159,92 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 30,
                 ),
-                state.status == LoginStatus.PROCESSING
-                    ? Container(height: 50, child: CircularProgressIndicator())
-                    : SplashButton(
-                        elevated: true,
-                        label: LOGIN_STRING,
-                      )
+                SplashButton(
+                  elevated: true,
+                  color: state.status == LoginStatus.PROCESSING
+                      ? Colors.grey[300]
+                      : Colors.blue,
+                  childWidget: state.status == LoginStatus.PROCESSING
+                      ? Container(
+                          height: 30,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : Text(
+                          LOGIN_STRING.toUpperCase(),
+                          style: headingsBold.copyWith(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
+                        ),
+                  onPressed: state.status == LoginStatus.PROCESSING
+                      ? () {}
+                      : () {
+                          if (_formKey.currentState.validate()) {
+                            if (_autoValidate) {}
+                            _formKey.currentState.save();
+
+                            BlocProvider.of<LoginBloc>(context).add(
+                              LoginwithEmailandPassword(
+                                email: _email,
+                                password: _password,
+                              ),
+                            );
+                          } else {
+                            setState(() {
+                              _autoValidate = true;
+                            });
+                          }
+                        },
+                ),
+                SizedBox(height: 30),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, REGISTER);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        NEW_USER_STRING,
+                        style: headingsBold.copyWith(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(width: 9),
+                      Text(
+                        SIGN_UP_HERE_STRING,
+                        style: headingsBold.copyWith(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  _navigateToDashboard() {
+    Navigator.pop(context);
+    Navigator.pushNamed(context, HOME);
+  }
+
+  String _validateEmail(String value) {
+    Pattern pattern = EMAIL_PATTERN_CHECK_STRING;
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return VALID_EMAIL_ERROR;
+    else
+      return null;
   }
 }

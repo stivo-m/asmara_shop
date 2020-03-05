@@ -17,15 +17,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginEvent event,
   ) async* {
     if (event is LoginwithEmailandPassword) {
+      FirebaseUser currentUser;
       yield LoginProcess(user: null, status: LoginStatus.PROCESSING);
       await auth.loginWithEmailandPassword(event.email, event.password).then(
         (FirebaseUser user) {
-          user == null
-              ? LoginProcess(user: null, status: LoginStatus.FAILED)
-              : LoginProcess(user: auth.user, status: LoginStatus.SUCCESSFUL);
+          currentUser = user;
         },
       );
-      yield LoginProcess(user: auth.user, status: LoginStatus.SUCCESSFUL);
+      yield currentUser == null
+          ? LoginProcess(
+              user: null,
+              status: LoginStatus.FAILED,
+            )
+          : LoginProcess(
+              user: auth.user,
+              status: LoginStatus.SUCCESSFUL,
+            );
     }
   }
 }

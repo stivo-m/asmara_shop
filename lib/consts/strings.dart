@@ -1,7 +1,10 @@
 const String APP_NAME = "Asmara Shop";
 const String LOGIN_STRING = "Login";
+const String EMAIL_FIELD_STRING = "Email";
 const String PASSWORD_STRING = "Password";
 const String SIGNUP_STRING = "Signup";
+const String NEW_USER_STRING = "New User";
+const String SIGN_UP_HERE_STRING = "Register Here";
 const String ORDERS_STRING = "orders";
 const String MSG_STRING = "messages";
 const String VIEW_ALL = "View All";
@@ -18,6 +21,12 @@ const String AVAILALE_COLORS = "Available Colors";
 const String FORGOT_PASSWORD_STRING = "Forgot Password";
 const String REMEMBER_ME = "Remember Me";
 const WELCOME_TEXT = "Welcome Back,";
+const PASSWORD_ERROR_STRING = "Password must be at least 9 Characters";
+const AUTH_ERROR = "An Error Occured. Try again";
+const LOGIN_BELOW_STRING = "Login Below";
+const VALID_EMAIL_ERROR = "Enter Valid Email";
+const EMAIL_PATTERN_CHECK_STRING =
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
 // Strings targeting images within the asset folder
 const String AD_ONE = "assets/images/tshirt-yellow.jpg";
