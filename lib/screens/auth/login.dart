@@ -207,7 +207,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        NEW_USER_STRING,
+                        ALREADY_REGISTERED,
                         style: headingsBold.copyWith(
                           color: Colors.blue,
                           fontWeight: FontWeight.w300,
@@ -216,7 +216,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(width: 9),
                       Text(
-                        SIGN_UP_HERE_STRING,
+                        LOGIN_HERE_STRING,
                         style: headingsBold.copyWith(
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,

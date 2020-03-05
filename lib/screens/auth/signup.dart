@@ -1,4 +1,3 @@
-import 'package:asmara_shop/blocs/login_bloc/login_bloc.dart';
 import 'package:asmara_shop/blocs/signup_bloc/signup_bloc.dart';
 import 'package:asmara_shop/consts/strings.dart';
 import 'package:asmara_shop/consts/text_styles.dart';
@@ -249,8 +248,10 @@ class _SignupState extends State<Signup> {
                             if (_autoValidate) {}
                             _formKey.currentState.save();
 
-                            BlocProvider.of<LoginBloc>(context).add(
-                              LoginwithEmailandPassword(
+                            BlocProvider.of<SignupBloc>(context).add(
+                              SignUpWithCredentials(
+                                name: _name,
+                                phoneNumber: _phoneNumber,
                                 email: _email,
                                 password: _password,
                               ),
