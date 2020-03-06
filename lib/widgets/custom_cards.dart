@@ -52,7 +52,7 @@ class CustomClothesCards extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 80,
-                  width: 200,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -79,7 +79,7 @@ class CustomClothesCards extends StatelessWidget {
                               name.toUpperCase(),
                               style: boldNormalText,
                             ),
-                            Text(price, style: normalText),
+                            Text(PRICE_PREFIX + price, style: normalText),
                           ],
                         ),
                         SizedBox(

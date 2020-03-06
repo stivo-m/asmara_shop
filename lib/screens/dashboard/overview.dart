@@ -103,7 +103,6 @@ class _OverviewState extends State<Overview> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 5.0),
-                //decoration: BoxDecoration(color: Colors.amber),
                 child: Image.asset(images[index]),
               ),
             );
@@ -148,27 +147,30 @@ class _OverviewState extends State<Overview> {
                 stream: Firestore.instance.collection("products").snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
-
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3),
+                          crossAxisCount: 2),
                       controller: _gridScrollController,
-                      itemCount: map.values.toList().length,
+                      itemCount: snapshot.data.documents.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Navigator.popAndPushNamed(
+                            Navigator.pushNamed(
                               context,
                               PRODUCT_PAGE,
-                              arguments: map,
+                              arguments: snapshot.data.documents[index],
                             );
                           },
+                          //child: Container(color: Colors.green),
                           child: CustomClothesCards(
-                            discount: map.values.toList()[index]["discount"],
-                            imgUrl: map.values.toList()[index][""],
-                            name: map.values.toList()[index]["name"],
-                            price: map.values.toList()[index]["price"],
+                            discount: snapshot
+                                .data.documents[index].data["discount"]
+                                .toString(),
+                            imgUrl:
+                                snapshot.data.documents[index].data["imgUrl"],
+                            name: snapshot.data.documents[index].data["name"],
+                            price: snapshot.data.documents[index].data["price"]
+                                .toString(),
                           ),
                         );
                       },

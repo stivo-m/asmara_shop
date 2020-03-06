@@ -17,6 +17,7 @@ class _SignupState extends State<Signup> {
   GlobalKey<FormState> _formKey = GlobalKey();
   bool _autoValidate = false;
   String _email, _password, _name, _phoneNumber;
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +37,14 @@ class _SignupState extends State<Signup> {
 
   Widget _buildPageContent(BuildContext context, SignupState state) {
     return ListView(
+      scrollDirection: Axis.vertical,
+      controller: _scrollController,
       children: <Widget>[
         SizedBox(height: 20),
         FlutterLogo(size: 200),
         SizedBox(height: 50),
         Container(
-          height: 500,
+          height: 800,
           width: MediaQuery.of(context).size.width * 0.75,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Form(
@@ -60,7 +63,7 @@ class _SignupState extends State<Signup> {
                   height: 20,
                 ),
                 state.status == RegistrationStatus.IDLE
-                    ? Text(LOGIN_BELOW_STRING,
+                    ? Text(SIGNUP_STRING,
                         style: headingsLight.copyWith(
                           color: Colors.blue,
                           fontSize: 22,
@@ -83,6 +86,7 @@ class _SignupState extends State<Signup> {
                   height: 30,
                 ),
                 TextFormField(
+                  enabled: state.status != RegistrationStatus.PROCESSING,
                   keyboardType: TextInputType.text,
                   onSaved: (val) {
                     if (val.isNotEmpty) {
@@ -114,6 +118,7 @@ class _SignupState extends State<Signup> {
                   height: 30,
                 ),
                 TextFormField(
+                  enabled: state.status != RegistrationStatus.PROCESSING,
                   keyboardType: TextInputType.emailAddress,
                   onSaved: (val) {
                     if (val.isNotEmpty) {
@@ -123,7 +128,7 @@ class _SignupState extends State<Signup> {
                   validator: _validateEmail,
                   decoration: InputDecoration(
                     suffixIcon: Icon(
-                      Icons.person,
+                      Icons.email,
                       color: Colors.blue,
                     ),
                     border: OutlineInputBorder(
@@ -139,6 +144,7 @@ class _SignupState extends State<Signup> {
                   height: 30,
                 ),
                 TextFormField(
+                  enabled: state.status != RegistrationStatus.PROCESSING,
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   onSaved: (val) {
@@ -170,6 +176,7 @@ class _SignupState extends State<Signup> {
                   height: 30,
                 ),
                 TextFormField(
+                  enabled: state.status != RegistrationStatus.PROCESSING,
                   keyboardType: TextInputType.number,
                   onSaved: (val) {
                     if (val.isNotEmpty) {
@@ -185,7 +192,7 @@ class _SignupState extends State<Signup> {
                   },
                   decoration: InputDecoration(
                     suffixIcon: Icon(
-                      Icons.person,
+                      Icons.phone_android,
                       color: Colors.blue,
                     ),
                     border: OutlineInputBorder(
@@ -196,28 +203,6 @@ class _SignupState extends State<Signup> {
                     labelText: PHONE_NUMBER_STRING,
                     labelStyle: normalText,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        REMEMBER_ME,
-                        style: normalText.copyWith(color: Colors.blue),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        FORGOT_PASSWORD_STRING,
-                        style: normalText.copyWith(color: Colors.blue),
-                      ),
-                    )
-                  ],
                 ),
                 SizedBox(
                   height: 30,
@@ -266,26 +251,26 @@ class _SignupState extends State<Signup> {
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, REGISTER);
+                    Navigator.pushNamed(context, LOGIN);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        NEW_USER_STRING,
+                        ALREADY_REGISTERED,
                         style: headingsBold.copyWith(
                           color: Colors.blue,
                           fontWeight: FontWeight.w300,
-                          fontSize: 20,
+                          fontSize: 15,
                         ),
                       ),
                       SizedBox(width: 9),
                       Text(
-                        SIGN_UP_HERE_STRING,
+                        LOGIN_HERE_STRING,
                         style: headingsBold.copyWith(
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,
-                          fontSize: 20,
+                          fontSize: 15,
                         ),
                       ),
                     ],

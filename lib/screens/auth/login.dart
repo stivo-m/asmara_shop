@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                         ))
                     : Container(),
                 state.status == LoginStatus.SUCCESSFUL
-                    ? _navigateToDashboard
+                    ? _navigateToDashboard(context)
                     : Container(),
                 state.status == LoginStatus.FAILED
                     ? Text(
@@ -82,6 +82,7 @@ class _LoginState extends State<Login> {
                   height: 30,
                 ),
                 TextFormField(
+                  enabled: state.status != LoginStatus.PROCESSING,
                   keyboardType: TextInputType.emailAddress,
                   onSaved: (val) {
                     if (val.isNotEmpty) {
@@ -107,6 +108,7 @@ class _LoginState extends State<Login> {
                   height: 30,
                 ),
                 TextFormField(
+                  enabled: state.status != LoginStatus.PROCESSING,
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   onSaved: (val) {
@@ -144,14 +146,20 @@ class _LoginState extends State<Login> {
                       onTap: () {},
                       child: Text(
                         REMEMBER_ME,
-                        style: normalText.copyWith(color: Colors.blue),
+                        style: normalText.copyWith(
+                          color: Colors.blue,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                     InkWell(
                       onTap: () {},
                       child: Text(
                         FORGOT_PASSWORD_STRING,
-                        style: normalText.copyWith(color: Colors.blue),
+                        style: normalText.copyWith(
+                          color: Colors.blue,
+                          fontSize: 15,
+                        ),
                       ),
                     )
                   ],
@@ -207,20 +215,20 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        ALREADY_REGISTERED,
+                        NEW_USER_STRING,
                         style: headingsBold.copyWith(
                           color: Colors.blue,
                           fontWeight: FontWeight.w300,
-                          fontSize: 20,
+                          fontSize: 15,
                         ),
                       ),
                       SizedBox(width: 9),
                       Text(
-                        LOGIN_HERE_STRING,
+                        SIGN_UP_HERE_STRING,
                         style: headingsBold.copyWith(
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,
-                          fontSize: 20,
+                          fontSize: 15,
                         ),
                       ),
                     ],
@@ -234,10 +242,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _navigateToDashboard() {
-    Navigator.pop(context);
-    Navigator.pushNamed(context, HOME);
-  }
+  _navigateToDashboard(BuildContext context) {}
 
   String _validateEmail(String value) {
     Pattern pattern = EMAIL_PATTERN_CHECK_STRING;

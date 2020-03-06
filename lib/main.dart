@@ -1,5 +1,4 @@
 import 'package:asmara_shop/consts/routes_strings.dart';
-import 'package:asmara_shop/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:asmara_shop/routes/routes.dart' as router;
 
@@ -17,8 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: router.generateRoute,
-      initialRoute: LOGIN,
-      home: Dashboard(),
+      initialRoute: HOME,
     );
   }
 }

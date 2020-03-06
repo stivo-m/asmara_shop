@@ -13,8 +13,10 @@ class Auth {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then(
-        (AuthResult authResult) {
+        (AuthResult authResult) async {
           user = authResult.user;
+          print("User Signed In: " + authResult.user.uid);
+          await user.reload();
         },
       ).catchError(
         (error) {
@@ -34,20 +36,28 @@ class Auth {
     String phoneNumber,
     String password,
   ) async {
-    await auth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then(
-      (AuthResult authResult) async {
-        user = authResult.user;
+    try {
+      await auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then(
+        (AuthResult authResult) async {
+          user = authResult.user;
 
-        UserUpdateInfo updateInfo = UserUpdateInfo();
-        updateInfo.displayName = name;
-        user.sendEmailVerification();
-        await user.updateProfile(updateInfo);
-        await user.reload();
-        await updateUserInfo(user, name, phoneNumber);
-      },
-    );
+          UserUpdateInfo updateInfo = UserUpdateInfo();
+          updateInfo.displayName = name;
+          user.sendEmailVerification();
+          await user.updateProfile(updateInfo);
+          await user.reload();
+          await updateUserInfo(user, name, phoneNumber);
+        },
+      ).catchError(
+        (onError) {
+          print(onError);
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
 
     return user;
   }
@@ -64,6 +74,23 @@ class Auth {
     );
 
     return currentUser;
+  }
+
+  getSignedInUser() async {
+    user = await FirebaseAuth.instance.currentUser();
+    if (user == null || user.isAnonymous) {
+      print("no user signed in");
+    } else {
+      print("One User is Signed In");
+      return user;
+      //changing above line to print(mCurrentUser.uid) works, but that's useless
+      //for the purpose of this function
+    }
+  }
+
+  Future<void> signOut() {
+    auth.signOut();
+    return null;
   }
 }
 
